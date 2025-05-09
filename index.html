@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Search</title>
+    <style>
+        body {
+	
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .search-container {
+            text-align: center;
+        }
+
+        #search-box {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #search-button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #f4eded;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .sign-button {
+            position: absolute;
+            top: 20px;
+            right: 120px;
+            padding: 10px 20px;
+            background-color: #f0e9e9;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .ai-image {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        /* Additional Button Styles */
+        .additional-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        /* Animation Styles */
+        @keyframes scale {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+
+        }
+
+        /* Slideshow Styles */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin-top: 20px;
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        /* Dot Styles */
+        .dots {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 0 6px;
+            background-color: #bbb;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .active-dot {
+            background-color: #333;
+        }
+	
+        /* Menu Styles */
+        .menu {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .menu li {
+            display: inline;
+            margin: 0 20px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .menu a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Review Form Styles */
+        .review-form {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-form h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .review-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .review-form button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+	     .comments-section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .comments-section h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .comment {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .comment h3 {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .comment p {
+            margin: 10px 0;
+        }
+
+        #product1 .pro-container{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        #load{
+            align:center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+
+    <nav class="menu">
+        <ul>
+            <li><a href="index.html">Home</a></button></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="service.html">Services</a></button></li>
+            <li><a href="contact.html">Contact</a></button></li>
+            <!-- Add more menu items as needed -->
+        </ul>
+    </nav>
+    <button class="sign-button"><a href="login.html">Sign Up</a></button>
+    <button class="login-button"><a href="log.html">login</a></button>	 
+    <h1>AI Course</h1>
+
+    </header>
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="search-box" placeholder="Search for AI topics...">
+            <button id="search-button">Search</button>
+        </div>
+
+        <!-- Slideshow Container -->
+        <div class="slideshow-container">
+            <div class="slide fade">
+                <img src="https://iphonesoft.fr/images/2023/01/chatgpt-logo-header-banner.jpg" alt="Image 1">
+            </div>
+            <div class="slide fade">
+                <img src="https://th.bing.com/th/id/OIP.688kk7u2XBwBKQqbFKDjmwAAAA?pid=ImgDet&rs=1" alt="Image 2">
+            </div>
+            <div class="slide fade">
+                <img src="https://th.bing.com/th?id=OIP.OYgbgXFSjJWOcDAL2lgiRwAAAA&w=333&h=187&c=8&rs=1&qlt=90&o=6&dpr=1.1&pid=3.1&rm=2" alt="Image 3">
+            </div>
+            <!-- Add more images as needed -->
+
+            <!-- Navigation Dots -->
+            <div class="dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <!-- Add more dots for additional images -->
+            </div>
+        </div>
+
+    <a href="reg.html">   
+    </div>
+    <section id="product1" class="section-p1">
+
+        <div class="pro-container">
+            <div class="pro">
+                <img src="f1.jpeg">
+                <div class="des">
+                    <span>Learn AI</span>
+                    <h5>Basic course for AI</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>$78</h4>
+                </div>
+                <i class="fa-solid fa-cart-shopping cart" style="color: #088178;"></i></a>
+            <a href="reg.html">     
+            </div>
+            <div class="pro">
+                <img src="f9.jpeg">
+                <div class="des">
+                    <span>Engineering Course</span>
+                    <h5>Prompt Engineering</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>$78</h4>
+                </div>
+                <i class="fa-solid fa-cart-shopping cart" style="color: #088178;"></i></a>
+                
+            </div>
+            <a href="reg.html">  
+            <div class="pro">
+                <img src="f2.jpeg">
+                <div class="des">
+                    <span>Crash Course</span>
+                    <h5>Learn AI</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>$78</h4>
+                </div>
+                <i class="fa-solid fa-cart-shopping cart" style="color: #088178;"></i></a>
+                
+            </div>
+            <a href="reg.html">  
+            <div class="pro">
+                <img src="f3.jpeg">
+                <div class="des">
+                    <span>Learn AI</span>
+                    <h5>by tonix</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>$78</h4>
+                </div>
+                <i class="fa-solid fa-cart-shopping cart" style="color: #088178;"></i></a>
+                
+            </div>
+            <a href="reg.html">  
+            <div class="pro">
+                <img src="f4.jpeg">
+                <div class="des">
+                    <span>Learn AI</span>
+                    <h5>Deep learning</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>$78</h4>
+                </div>
+                <i class="fa-solid fa-cart-shopping cart" style="color: #088178;"></i></a>
+                
+            </div>
+            <a href="reg.html">  
+            <div class="pro">
+                <img src="f5.jpeg">
+                <div class="des">
+                    <span>Learn AIML</span>
+                    <h5>Deep Learning</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>$78</h4>
+                </div>
+                <i class="fa-solid fa-cart-shopping cart" style="color: #088178;"></i></a>
+                
+            </div>
+            <a href="reg.html">  
+            <div class="pro">
+                <img src="f6.jpeg">
+                <div class="des">
+                    <span>AI</span>
+                    <h5>Ipplied AI</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>$78</h4>
+                </div>
+                <i class="fa-solid fa-cart-shopping cart" style="color: #088178;"></i></a>
+                
+            </div>
+            <a href="reg.html">  
+            <div class="pro">
+                <img src="f7.jpeg">
+                <div class="des">
+                    <span>AI</span>
+                    <h5>Python for AI</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>$78</h4>
+                </div>
+                <a href="#"><i class="fa-solid fa-cart-shopping cart" style="color: #088178;"></i></a>
+                
+            </div>
+            <a href="reg.html">  
+            <div class="pro">
+                <img src="f8.jpeg">
+                <div class="des">
+                    <span>AI</span>
+                    <h5>K12 education</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>$78</h4>
+                </div>
+                <i class="fa-solid fa-cart-shopping cart" style="color: #088178;"></i></a>
+                
+            </div>
+
+            
+                <a href="#"><i class="fa-solid fa-cart-shopping cart" style="color: #088178;"></i></a>
+                
+            </div>
+        </div>
+        <div align="center">
+           <h1> <button class="additional-button" id="load" >Load More</button></h1>
+
+        </div>
+
+
+    </section>
+    <h1><p>Comment</p></h1>
+
+    <script>
+        // JavaScript for Slideshow
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            const slides = document.querySelectorAll(".slide");
+            const dots = document.querySelectorAll(".dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active-dot", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active-dot";
+            setTimeout(showSlides, 2000); // Change image every 2 seconds
+        }
+    </script>
+            <!-- Comments -->
+            <div class="comment">
+                <h3>User 1</h3>
+                <p>This is a great AI resource!</p>
+            </div>
+            <div class="comment">
+                <h3>User 2</h3>
+                <p>Very informative. I learned a lot.</p>
+            </div>
+
+            <!-- Review Form -->
+            <div class="review-form">
+                <h2>Leave a Review</h2>
+                <form>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <label for="review">Review:</label>
+                    <textarea id="review" name="review" rows="4" required></textarea>
+                    <button type="submit">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

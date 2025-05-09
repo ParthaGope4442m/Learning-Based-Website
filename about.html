@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Search</title>
+    <style>
+        body {
+	
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .search-container {
+            text-align: center;
+        }
+
+        #search-box {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #search-button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-button{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #fffefe;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .ai-image {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        /* Additional Button Styles */
+        .additional-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        /* Animation Styles */
+        @keyframes scale {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+
+        }
+
+        /* Slideshow Styles */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin-top: 20px;
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        /* Dot Styles */
+        .dots {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 0 6px;
+            background-color: #bbb;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .active-dot {
+            background-color: #333;
+        }
+	
+        /* Menu Styles */
+        .menu {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .menu li {
+            display: inline;
+            margin: 0 20px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .menu a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Review Form Styles */
+        .review-form {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-form h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .review-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .review-form button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+	     .comments-section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .comments-section h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .comment {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .comment h3 {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .comment p {
+            margin: 10px 0;
+        }
+        .sign-button {
+            position: absolute;
+            top: 20px;
+            right: 120px;
+            padding: 10px 20px;
+            background-color: #f0e9e9;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Home</a></button></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="service.html">Services</a></button></li>
+                <li><a href="contact.html">Contact</a></button></li>
+                <!-- Add more menu items as needed -->
+            </ul>
+        </nav>
+         
+        <h1>AI Course</h1>
+        <button class="sign-button"><a href="login.html">Sign Up</a></button>
+        <button class="login-button"><a href="log.html">login</a></button>
+        </header>
+
+    <p><h1>Title: "Unlocking the Future: The Power of Search AI"</h1><br>
+
+In the ever-evolving landscape of technology, one groundbreaking innovation stands out as a beacon of progress – Search AI. At the intersection of artificial intelligence and information retrieval, Search AI is revolutionizing the way we interact with and harness the vast troves of data available in the digital age.
+
+ The Quest for Knowledge
+
+In today's fast-paced world, information is a currency, and access to it is paramount. From students seeking answers for their homework to professionals striving to make data-driven decisions, the need for efficient and accurate information retrieval has never been greater. Enter Search AI, the catalyst that is transforming how we seek, find, and use information.
+
+<h2> A Journey into the Depths</h2><br>
+
+At its core, Search AI is an advanced system that leverages the power of artificial intelligence to understand and interpret the nuances of human queries. Gone are the days of simple keyword matching; Search AI delves deep into the context, intent, and semantics of your query, ensuring that the results it provides are not just relevant but insightful.
+
+<h2>The Evolution of Search Engines</h2><br>
+
+Search AI is not just confined to web search engines; it's finding its way into every facet of our digital lives. E-commerce platforms use it to recommend products tailored to individual preferences. Healthcare professionals employ it to analyze vast medical datasets for diagnoses and treatment recommendations. In legal and financial sectors, it assists in sifting through mountains of documents for critical information. The applications are boundless.
+
+<h2> The Intelligence Behind the Scenes</h2><br>
+
+Underpinning Search AI is a blend of sophisticated machine learning algorithms and natural language processing capabilities. These algorithms continuously learn and adapt, improving their performance with every interaction. They decipher complex queries, filter through immense datasets, and present results in a user-friendly format, ensuring that the user's journey from question to answer is as seamless as possible.
+
+<h2>Beyond Keywords</h2><br>
+
+One of the most significant advances brought about by Search AI is its ability to understand user intent. Users no longer need to rely on rigid keyword searches; instead, they can pose questions in a more conversational manner. This shift has profound implications for accessibility, making information more accessible to people of varying language proficiency and digital literacy levels.
+
+<h2>Ethical Considerations</h2><br>
+
+As with any powerful technology, Search AI also raises important ethical questions. Issues of privacy, bias, and algorithm transparency must be carefully addressed to ensure that this transformative tool is harnessed for the benefit of all.
+
+<h2> The Future Beckons</h2><br>
+
+The journey of Search AI has only just begun. As we move forward, we can expect even more profound integration into our daily lives, from personal assistants that anticipate our needs to industrial applications that optimize complex processes. As the capabilities of Search AI continue to expand, the boundaries of what's possible in the digital age will be pushed further than ever before.
+
+In conclusion, Search AI is not merely a tool; it's a gateway to a smarter, more connected world. Its potential to simplify and enhance our interaction with information is limitless. The quest for knowledge has taken an exciting turn, and with Search AI at our side, we're poised to unlock the full potential of the digital universe.</h1></P>
+</body>
+</html>
+
