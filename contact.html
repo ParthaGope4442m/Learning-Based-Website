@@ -242,6 +242,61 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
+        /* Responsive Styles */
+@media (max-width: 900px) {
+    .container {
+        max-width: 98%;
+        padding: 10px;
+    }
+    #search-box {
+        width: 95%;
+    }
+    .login-button, .sign-button {
+        position: static;
+        margin: 10px 5px;
+        display: inline-block;
+    }
+    header {
+        padding-bottom: 60px;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 5px;
+    }
+    .menu ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .menu li {
+        display: block;
+        margin: 10px 0;
+    }
+    .slideshow-container img {
+        height: auto;
+        max-width: 100%;
+    }
+    .review-form, .comments-section, .comment {
+        padding: 10px;
+    }
+    .login-button, .sign-button {
+        width: 100%;
+        margin: 10px 0;
+        font-size: 1em;
+    }
+    h1 {
+        font-size: 1.3em;
+        word-break: break-word;
+    }
+    p {
+        font-size: 1em;
+        padding: 0 2vw;
+        word-break: break-word;
+    }
+}
     </style>
 </head>
 <body>
